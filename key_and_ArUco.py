@@ -26,11 +26,7 @@ def flight_data_handler(event, sender, data, **args):
         prev_flight_data = str(data)
 
 
-skip_frames = 300
 drone = None
-container = None
-dictionary_name = cv2.aruco.DICT_4X4_50 
-dictionary = cv2.aruco.getPredefinedDictionary(dictionary_name)
 
 def on_press(key):
     key_code = format(key.char)
@@ -65,9 +61,15 @@ def on_release(key):
     drone.right(0)
     drone.left(0)
 
+container = None
+skip_frames = 300
+
 def video_handler():
     global container
     global skip_frames
+
+    dictionary_name = cv2.aruco.DICT_4X4_50 
+    dictionary = cv2.aruco.getPredefinedDictionary(dictionary_name)
 
     try:
         for frame in container.decode(video=0):
