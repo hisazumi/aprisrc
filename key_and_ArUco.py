@@ -8,7 +8,6 @@ tellopy sample using joystick and video palyer
 """
 
 import time
-from time import sleep
 import sys
 import tellopy
 import traceback
@@ -95,7 +94,6 @@ def on_release(key):
 
 def main():
     global key_code, key_condition,key_timing
-    global container
     condition = 0;
     direct = 0
 
