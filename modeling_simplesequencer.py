@@ -15,15 +15,24 @@ class SimpleSequencer:
         # self.tello.start_video()
 
     def run(self):
-        self.tello.takeoff()
-        sleep(5)
-        self.tello.forward(50)
-        sleep(5)
-        self.tello.clockwise(180)
-        sleep(5)
-        self.tello.forward(50)
-        sleep(5)
-        self.tello.land()
+        try:
+            self.tello.takeoff()
+            sleep(5)
+            self.tello.forward(50)
+            sleep(5)
+            self.tello.clockwise(180)
+            sleep(5)
+            self.tello.forward(50)
+            sleep(5)
+            self.tello.land()
+        except KeyboardInterrupt as e:
+            print(e)
+        except Exception as e:
+            print(e)
+
+        drone.quit()
+        exit(1)
+
 
 ss = SimpleSequencer()
 ss.initialize()
