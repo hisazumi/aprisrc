@@ -9,7 +9,7 @@ import tellopy
 class SimpleSequencer:
     def __init__(self):
         self.tello = False
-        self.video_thread = Flase
+        self.video_thread = False
 
     def video_receiver(self):
         dictionary_name = cv2.aruco.DICT_7X7_100
@@ -39,7 +39,6 @@ class SimpleSequencer:
                             preids_list = list(elem)
                             value = preids_list[0]
                             preids.add(value)
-
                         print('Detected ArMark ID=', preids)
 
                     # Get height and width of read image
@@ -47,6 +46,7 @@ class SimpleSequencer:
                     width = int(image.shape[1]/2)
                     resized_img = cv2.resize(image,(width,height))
                     cv2.imshow('Original', resized_img)
+                    cv2.waitKey(1)
                     frame_skip = int((time() - start_time)/frame.time_base) * 50
 
         except Exception as ex:
@@ -54,7 +54,6 @@ class SimpleSequencer:
             traceback.print_exception(exc_type, exc_value, exc_traceback)
             print(ex)
         finally:
-#            self.tello.quit()
             cv2.destroyAllWindows()
 
     def initialize(self):
@@ -67,13 +66,14 @@ class SimpleSequencer:
         self.video_thread.start()
 
     def run(self):
+        sleep(10)
         self.tello.takeoff()
         sleep(5)
-        self.tello.forward(50)
+        self.tello.forward(10)
         sleep(5)
         self.tello.clockwise(180)
         sleep(5)
-        self.tello.forward(50)
+        self.tello.forward(10)
         sleep(5)
         self.tello.land()
 
@@ -85,7 +85,8 @@ ss = False
 try:
     ss = SimpleSequencer()
     ss.initialize()
-    ss.run()
+    #ss.run()
+    sleep(100)
 except KeyboardInterrupt as e:
     print(e)
 except Exception as e:
