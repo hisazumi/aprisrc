@@ -15,9 +15,7 @@ class SimpleSequencer:
         dictionary_name = cv2.aruco.DICT_7X7_100
         dictionary = cv2.aruco.getPredefinedDictionary(dictionary_name)
 
-        preids_list = []
         preids = set([])    # set variable
-        preids = set(preids_list)
 
         try:
             container = av.open(self.tello.get_video_stream())
@@ -36,9 +34,7 @@ class SimpleSequencer:
 
                     if isinstance(ids, np.ndarray) == True:
                         for elem in ids:
-                            preids_list = list(elem)
-                            value = preids_list[0]
-                            preids.add(value)
+                            preids.add(elem)
                         print('Detected ArMark ID=', preids)
 
                     # Get height and width of read image
