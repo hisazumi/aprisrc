@@ -1,4 +1,5 @@
 from time import sleep, time
+import sys
 import threading
 import traceback
 import numpy as np
@@ -53,9 +54,11 @@ class SimpleSequencer:
             cv2.destroyAllWindows()
 
     def initialize(self):
+        # init tello
         self.tello = tellopy.Tello()
         self.tello.connect()
-        self.tello.wait_for_connection()
+        self.tello.wait_for_connection(60.0)
+        # start video
         self.tello.video_encoder_rate = 1
         self.tello.start_video()
         self.video_thread = threading.Thread(target=self.video_receiver)
@@ -81,8 +84,7 @@ ss = False
 try:
     ss = SimpleSequencer()
     ss.initialize()
-    #ss.run()
-    sleep(100)
+    ss.run()
 except KeyboardInterrupt as e:
     print(e)
 except Exception as e:
